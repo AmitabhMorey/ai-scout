@@ -5,7 +5,7 @@ export type NewsItem = {
   url: string;
   description: string;
   source: string;
-  publishedAt?: string;
+  publishedAt?: string | undefined;
 };
 
 export const NEWS_TOPICS = {
