@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowUpRight, Loader2, RefreshCw, Sparkles } from "lucide-react";
 
@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { fetchAiNews, NEWS_TOPICS, type NewsItem, type TopicKey } from "@/lib/news.functions";
+import { fetchAiNews, NEWS_TOPICS, type RangeKey, type TopicKey } from "@/lib/news.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -43,19 +43,22 @@ const RANGES = [
 
 function Index() {
   const [topic, setTopic] = useState<TopicKey>("models");
-  const [range, setRange] = useState<(typeof RANGES)[number]["key"]>("qdr:w");
-  const [items, setItems] = useState<NewsItem[]>([]);
+  const [range, setRange] = useState<RangeKey>("qdr:w");
 
   const run = useServerFn(fetchAiNews);
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (vars: { topic: TopicKey; range: typeof range }) => run({ data: vars }),
-    onSuccess: setItems,
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: ["ai-news", topic, range],
+    queryFn: () => run({ data: { topic, range } }),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: false,
   });
 
-  useEffect(() => {
-    mutate({ topic, range });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topic, range]);
+  const items = data?.items ?? [];
+  const error = data?.error;
+  const isPending = isFetching;
+  const mutate = () => refetch();
 
   return (
     <>
@@ -111,7 +114,7 @@ function Index() {
           <Button
             variant="outline"
             className="ml-auto gap-2 rounded-full border-border bg-card/60 backdrop-blur"
-            onClick={() => mutate({ topic, range })}
+            onClick={() => mutate()}
             disabled={isPending}
           >
             {isPending ? (
@@ -125,7 +128,7 @@ function Index() {
 
         {error ? (
           <p className="mt-10 rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-foreground">
-            Couldn&apos;t load updates: {(error as Error).message}
+            {error}
           </p>
         ) : null}
 
