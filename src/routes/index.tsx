@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMutation } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ArrowUpRight, Loader2, RefreshCw, Sparkles } from "lucide-react";
 
@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { fetchAiNews, NEWS_TOPICS, type NewsItem, type TopicKey } from "@/lib/news.functions";
+import { fetchAiNews, NEWS_TOPICS, type RangeKey, type TopicKey } from "@/lib/news.functions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
