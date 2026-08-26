@@ -62,47 +62,41 @@
 }
 
 :root {
-  --radius: 0.9rem;
-  --background: oklch(0.16 0.028 268);
-  --foreground: oklch(0.96 0.01 250);
-  --card: oklch(0.21 0.032 267);
-  --card-foreground: oklch(0.96 0.01 250);
-  --popover: oklch(0.21 0.032 267);
-  --popover-foreground: oklch(0.96 0.01 250);
-  --primary: oklch(0.78 0.17 172);
-  --primary-foreground: oklch(0.17 0.03 268);
-  --secondary: oklch(0.27 0.04 268);
-  --secondary-foreground: oklch(0.95 0.01 250);
-  --muted: oklch(0.25 0.035 268);
-  --muted-foreground: oklch(0.72 0.03 258);
-  --accent: oklch(0.68 0.19 305);
-  --accent-foreground: oklch(0.97 0.01 250);
-  --destructive: oklch(0.62 0.22 22);
-  --destructive-foreground: oklch(0.97 0.01 250);
-  --border: oklch(0.98 0.01 250 / 12%);
-  --input: oklch(0.98 0.01 250 / 16%);
-  --ring: oklch(0.78 0.17 172);
-  --chart-1: oklch(0.78 0.17 172);
-  --chart-2: oklch(0.68 0.19 305);
-  --chart-3: oklch(0.75 0.16 220);
-  --chart-4: oklch(0.83 0.17 90);
-  --chart-5: oklch(0.7 0.2 20);
-  --sidebar: oklch(0.19 0.03 268);
-  --sidebar-foreground: oklch(0.96 0.01 250);
-  --sidebar-primary: oklch(0.78 0.17 172);
-  --sidebar-primary-foreground: oklch(0.17 0.03 268);
-  --sidebar-accent: oklch(0.27 0.04 268);
-  --sidebar-accent-foreground: oklch(0.96 0.01 250);
-  --sidebar-border: oklch(0.98 0.01 250 / 12%);
-  --sidebar-ring: oklch(0.78 0.17 172);
+  --radius: 0.375rem;
+  --background: oklch(0.985 0.003 95);
+  --foreground: oklch(0.24 0.012 265);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.012 265);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.012 265);
+  --primary: oklch(0.36 0.055 250);
+  --primary-foreground: oklch(0.985 0.003 95);
+  --secondary: oklch(0.95 0.005 95);
+  --secondary-foreground: oklch(0.3 0.012 265);
+  --muted: oklch(0.955 0.004 95);
+  --muted-foreground: oklch(0.5 0.012 265);
+  --accent: oklch(0.94 0.008 95);
+  --accent-foreground: oklch(0.28 0.012 265);
+  --destructive: oklch(0.52 0.16 27);
+  --destructive-foreground: oklch(0.985 0.003 95);
+  --border: oklch(0.24 0.012 265 / 12%);
+  --input: oklch(0.24 0.012 265 / 16%);
+  --ring: oklch(0.36 0.055 250);
+  --chart-1: oklch(0.36 0.055 250);
+  --chart-2: oklch(0.55 0.05 250);
+  --chart-3: oklch(0.7 0.04 250);
+  --chart-4: oklch(0.45 0.03 120);
+  --chart-5: oklch(0.6 0.08 60);
+  --sidebar: oklch(0.97 0.004 95);
+  --sidebar-foreground: oklch(0.24 0.012 265);
+  --sidebar-primary: oklch(0.36 0.055 250);
+  --sidebar-primary-foreground: oklch(0.985 0.003 95);
+  --sidebar-accent: oklch(0.94 0.008 95);
+  --sidebar-accent-foreground: oklch(0.28 0.012 265);
+  --sidebar-border: oklch(0.24 0.012 265 / 12%);
+  --sidebar-ring: oklch(0.36 0.055 250);
 
-  --gradient-brand: linear-gradient(
-    100deg,
-    oklch(0.78 0.17 172),
-    oklch(0.75 0.16 220),
-    oklch(0.68 0.19 305)
-  );
-  --shadow-glow: 0 0 0 1px oklch(0.98 0.01 250 / 8%), 0 24px 60px -24px oklch(0.78 0.17 172 / 35%);
+  --font-serif: "Newsreader", Georgia, serif;
 }
 
 @layer base {
@@ -113,123 +107,20 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
 }
 
-/* ---------- ReactBits-inspired effects ---------- */
-
-.gradient-text {
-  background: var(--gradient-brand);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradient-pan 7s linear infinite;
+@utility font-serif-display {
+  font-family: var(--font-serif);
+  font-feature-settings: "liga" 1;
 }
 
-@keyframes gradient-pan {
-  to {
-    background-position: 220% 0;
-  }
-}
-
-.spotlight-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background: color-mix(in oklab, var(--color-card) 82%, transparent);
-  backdrop-filter: blur(14px);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.spotlight-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: var(--spot-opacity, 0);
-  transition: opacity 0.3s ease;
-  background: radial-gradient(
-    260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-    oklch(0.78 0.17 172 / 18%),
-    transparent 70%
+@utility rule-grid {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-border) 100%, transparent) 1px,
+    transparent 1px
   );
 }
-
-.spotlight-card:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in oklab, var(--color-primary) 45%, transparent);
-  box-shadow: var(--shadow-glow);
-}
-
-.aurora {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: var(--color-background);
-}
-
-.aurora-blob {
-  position: absolute;
-  width: 46rem;
-  height: 46rem;
-  border-radius: 9999px;
-  filter: blur(120px);
-  opacity: 0.28;
-  animation: float-blob 18s ease-in-out infinite alternate;
-}
-
-.aurora-blob-1 {
-  background: oklch(0.78 0.17 172);
-  top: -14rem;
-  left: -10rem;
-}
-
-.aurora-blob-2 {
-  background: oklch(0.68 0.19 305);
-  top: -6rem;
-  right: -14rem;
-  animation-delay: -6s;
-}
-
-.aurora-blob-3 {
-  background: oklch(0.75 0.16 220);
-  bottom: -22rem;
-  left: 30%;
-  animation-delay: -11s;
-}
-
-@keyframes float-blob {
-  to {
-    transform: translate3d(4rem, 3rem, 0) scale(1.15);
-  }
-}
-
-.aurora-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(oklch(0.98 0.01 250 / 5%) 1px, transparent 1px),
-    linear-gradient(90deg, oklch(0.98 0.01 250 / 5%) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at 50% 0%, black, transparent 75%);
-}
-
-.fade-up {
-  animation: fade-up 0.5s both;
-}
-
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-}
-
