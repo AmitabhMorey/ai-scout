@@ -114,7 +114,7 @@ function Index() {
           <Button
             variant="outline"
             className="ml-auto gap-2 rounded-full border-border bg-card/60 backdrop-blur"
-            onClick={() => mutate({ topic, range })}
+            onClick={() => mutate()}
             disabled={isPending}
           >
             {isPending ? (
@@ -128,7 +128,7 @@ function Index() {
 
         {error ? (
           <p className="mt-10 rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm text-foreground">
-            Couldn&apos;t load updates: {(error as Error).message}
+            {error}
           </p>
         ) : null}
 
