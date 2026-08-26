@@ -43,19 +43,22 @@ const RANGES = [
 
 function Index() {
   const [topic, setTopic] = useState<TopicKey>("models");
-  const [range, setRange] = useState<(typeof RANGES)[number]["key"]>("qdr:w");
-  const [items, setItems] = useState<NewsItem[]>([]);
+  const [range, setRange] = useState<RangeKey>("qdr:w");
 
   const run = useServerFn(fetchAiNews);
-  const { mutate, isPending, error } = useMutation({
-    mutationFn: (vars: { topic: TopicKey; range: typeof range }) => run({ data: vars }),
-    onSuccess: setItems,
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: ["ai-news", topic, range],
+    queryFn: () => run({ data: { topic, range } }),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    retry: false,
   });
 
-  useEffect(() => {
-    mutate({ topic, range });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [topic, range]);
+  const items = data?.items ?? [];
+  const error = data?.error;
+  const isPending = isFetching;
+  const mutate = () => refetch();
 
   return (
     <>
