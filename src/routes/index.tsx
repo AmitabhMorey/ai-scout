@@ -163,7 +163,7 @@ function Index() {
                       {item.title}
                       <ArrowUpRight className="ml-1 inline size-4 align-[-0.1em] text-muted-foreground" />
                     </a>
-                    <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                    <p className="mt-2 line-clamp-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
                       {item.description}
                     </p>
                     <p className="mt-3 text-xs uppercase tracking-[0.14em] text-muted-foreground">
