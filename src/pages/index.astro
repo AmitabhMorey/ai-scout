@@ -1,0 +1,195 @@
+---
+import RootLayout from '@/layouts/RootLayout.astro';
+import LivePulseFeed from '@/components/pulse/LivePulseFeed.vue';
+import { MODELS_DATA } from '@/data/models-data';
+import { FUNDING_ROUNDS_DATA, SECTOR_DISTRIBUTION } from '@/data/funding-data';
+import { PAPERS_DATA } from '@/data/papers-data';
+import { AGENTS_DATA } from '@/data/agents-data';
+
+const topModels = MODELS_DATA.slice(0, 4);
+const topDeal = FUNDING_ROUNDS_DATA[0];
+const topPaper = PAPERS_DATA[0];
+---
+
+<RootLayout
+  title="AI Scout — Frontier AI Models, Agentic IDEs & Venture Capital Intelligence"
+  description="Real-time intelligence and release briefings on frontier AI models, coding agents, agentic IDEs, and venture rounds."
+>
+  <div class="space-y-12">
+    <!-- Executive Hero Section -->
+    <section class="border-b border-border pb-10 pt-4 space-y-4">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 font-mono text-xs">
+        <span class="size-2 rounded-full bg-amber-400"></span>
+        <span>INTELLIGENCE BRIEFING // FEB 2025 EDITION</span>
+      </div>
+
+      <div class="max-w-4xl space-y-3">
+        <h1 class="font-serif-display text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.1] tracking-tight text-foreground">
+          What&apos;s shipping across <span class="italic text-amber-300 font-normal">frontier AI</span> and <span class="italic text-emerald-400 font-normal">agentic IDEs</span>.
+        </h1>
+        <p class="text-sm sm:text-base leading-relaxed text-muted-foreground max-w-2xl">
+          Continuous tracking of new foundation model weights, coding agents, software engineering benchmarks, and venture capital flows — synthesised from verified releases and live web feeds.
+        </p>
+      </div>
+
+      <!-- 4 Highlight Telemetry Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6">
+        <!-- Metric 1: Top Benchmark Model -->
+        <a href="/models" class="p-4 rounded-xl border border-border bg-card/60 hover:bg-card hover:border-amber-500/30 transition-all space-y-1 group">
+          <div class="text-[10px] font-mono uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+            <span>Top SWE-bench</span>
+            <span class="text-amber-400">70.3%</span>
+          </div>
+          <div class="font-serif-display text-lg font-medium text-foreground group-hover:text-amber-300 transition-colors">
+            Claude 3.7 Sonnet
+          </div>
+          <p class="text-[11px] text-muted-foreground line-clamp-1">Anthropic hybrid reasoning model</p>
+        </a>
+
+        <!-- Metric 2: Trending Coding Agent -->
+        <a href="/agents" class="p-4 rounded-xl border border-border bg-card/60 hover:bg-card hover:border-emerald-500/30 transition-all space-y-1 group">
+          <div class="text-[10px] font-mono uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+            <span>Trending Agent</span>
+            <span class="text-emerald-400">CLI Preview</span>
+          </div>
+          <div class="font-serif-display text-lg font-medium text-foreground group-hover:text-emerald-400 transition-colors">
+            Claude Code
+          </div>
+          <p class="text-[11px] text-muted-foreground line-clamp-1">Terminal autonomous coding agent</p>
+        </a>
+
+        <!-- Metric 3: Latest Mega Round -->
+        <a href="/funding" class="p-4 rounded-xl border border-border bg-card/60 hover:bg-card hover:border-purple-500/30 transition-all space-y-1 group">
+          <div class="text-[10px] font-mono uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+            <span>Mega Deal</span>
+            <span class="text-purple-400">${topDeal?.amountMillions}M</span>
+          </div>
+          <div class="font-serif-display text-lg font-medium text-foreground group-hover:text-purple-300 transition-colors truncate">
+            {topDeal?.company}
+          </div>
+          <p class="text-[11px] text-muted-foreground line-clamp-1">Valued at ${topDeal?.valuationMillions}M ({topDeal?.stage})</p>
+        </a>
+
+        <!-- Metric 4: Top ArXiv Preprint -->
+        <a href="/papers" class="p-4 rounded-xl border border-border bg-card/60 hover:bg-card hover:border-blue-500/30 transition-all space-y-1 group">
+          <div class="text-[10px] font-mono uppercase tracking-wider text-muted-foreground flex items-center justify-between">
+            <span>Top ArXiv</span>
+            <span class="text-blue-400">GRPO / RL</span>
+          </div>
+          <div class="font-serif-display text-lg font-medium text-foreground group-hover:text-blue-300 transition-colors truncate">
+            DeepSeek-R1
+          </div>
+          <p class="text-[11px] text-muted-foreground line-clamp-1">Pure RL reasoning breakthrough</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Main Dual-Column Intelligence Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <!-- Left Column (65%): Live News & Release Stream -->
+      <section class="lg:col-span-8 space-y-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="size-2 rounded-full bg-emerald-400 radar-dot"></span>
+            <h2 class="font-serif-display text-2xl font-normal text-foreground">Live Pulse Feed</h2>
+          </div>
+          <a href="/pulse" class="text-xs font-mono text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors">
+            View full stream →
+          </a>
+        </div>
+
+        <!-- Real-time Firecrawl Vue Island -->
+        <LivePulseFeed client:load />
+      </section>
+
+      <!-- Right Column (35%): Model Leaderboard & Capital Snippets -->
+      <aside class="lg:col-span-4 space-y-8 lg:border-l lg:border-border lg:pl-8">
+        <!-- Widget 1: Frontier Models Radar Mini-Leaderboard -->
+        <div class="space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif-display text-lg font-medium text-foreground">Model Radar</h3>
+            <a href="/models" class="text-xs font-mono text-muted-foreground hover:text-amber-400 transition-colors">
+              Explore All ({MODELS_DATA.length}) →
+            </a>
+          </div>
+
+          <div class="space-y-2.5">
+            {topModels.map((m) => (
+              <a
+                href="/models"
+                class="p-3 rounded-lg border border-border bg-card/40 hover:bg-card transition-all block space-y-1.5 group"
+              >
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-medium text-foreground group-hover:text-amber-300 transition-colors">
+                    {m.name}
+                  </span>
+                  <span class="font-mono text-[11px] text-emerald-400">
+                    ${m.outputPrice}/1M
+                  </span>
+                </div>
+                <div class="flex items-center justify-between text-[10px] font-mono text-muted-foreground">
+                  <span>{m.creator} • {m.license}</span>
+                  <span>SWE: {m.sweBenchScore ? `${m.sweBenchScore}%` : '—'}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Widget 2: AI Coding Agents Spotlight -->
+        <div class="space-y-4 pt-4 border-t border-border">
+          <div class="flex items-center justify-between">
+            <h3 class="font-serif-display text-lg font-medium text-foreground">Agentic IDEs</h3>
+            <a href="/agents" class="text-xs font-mono text-muted-foreground hover:text-emerald-400 transition-colors">
+              Matrix ({AGENTS_DATA.length}) →
+            </a>
+          </div>
+
+          <div class="space-y-2">
+            {AGENTS_DATA.slice(0, 3).map((a) => (
+              <a
+                href="/agents"
+                class="p-3 rounded-lg border border-border bg-card/40 hover:bg-card transition-all block space-y-1 group"
+              >
+                <div class="flex items-center justify-between text-xs">
+                  <span class="font-medium text-foreground group-hover:text-emerald-400 transition-colors">
+                    {a.name}
+                  </span>
+                  <span class="font-mono text-[10px] text-purple-300 px-1.5 py-0.2 rounded bg-purple-500/10">
+                    {a.terminalExecution}
+                  </span>
+                </div>
+                <p class="text-[11px] text-muted-foreground line-clamp-1">
+                  {a.description}
+                </p>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Widget 3: Capital Deployment Mini-Card -->
+        <div class="p-4 rounded-xl border border-border bg-card/60 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-serif-display text-base font-medium text-foreground">AI Capital Share</h4>
+            <a href="/funding" class="text-[11px] font-mono text-muted-foreground hover:text-foreground">
+              Charts →
+            </a>
+          </div>
+          <div class="space-y-2">
+            {SECTOR_DISTRIBUTION.map((sec) => (
+              <div class="space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-mono">
+                  <span class="text-muted-foreground">{sec.name}</span>
+                  <span class="font-semibold text-foreground">{sec.percentage}%</span>
+                </div>
+                <div class="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                  <div class="h-full rounded-full" style={`width: ${sec.percentage}%; background-color: ${sec.color};`} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</RootLayout>

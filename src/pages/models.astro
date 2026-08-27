@@ -1,0 +1,27 @@
+---
+import RootLayout from '@/layouts/RootLayout.astro';
+import ModelGrid from '@/components/models/ModelGrid.vue';
+---
+
+<RootLayout
+  title="Frontier Foundation Models & Leaderboards — AI Scout"
+  description="Comprehensive benchmark radar, token pricing calculator, and side-by-side comparison matrix for frontier and open-weight AI models."
+>
+  <div class="space-y-8">
+    <!-- Header -->
+    <section class="border-b border-border pb-8 pt-2 space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-amber-400">Model Intelligence // Radar</span>
+      </div>
+      <h1 class="font-serif-display text-4xl sm:text-5xl font-normal text-foreground">
+        Frontier & Open-Weight Models
+      </h1>
+      <p class="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+        Track context window limits, token pricing, SWE-bench coding benchmarks, and reasoning architectures. Select any models to compare them side-by-side.
+      </p>
+    </section>
+
+    <!-- Interactive Model Grid & Comparator Island -->
+    <ModelGrid client:load />
+  </div>
+</RootLayout>

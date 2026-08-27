@@ -1,0 +1,27 @@
+---
+import RootLayout from '@/layouts/RootLayout.astro';
+import PaperList from '@/components/papers/PaperList.vue';
+---
+
+<RootLayout
+  title="ArXiv AI Breakthrough Research & Preprints — AI Scout"
+  description="Curated AI and machine learning preprints translated into 3-bullet executive takeaways with direct links to ArXiv PDFs and GitHub code repositories."
+>
+  <div class="space-y-8">
+    <!-- Header -->
+    <section class="border-b border-border pb-8 pt-2 space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-blue-400">Research & Preprints // ArXiv</span>
+      </div>
+      <h1 class="font-serif-display text-4xl sm:text-5xl font-normal text-foreground">
+        Breakthrough Research Digest
+      </h1>
+      <p class="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+        Essential AI/ML preprints distilled into actionable executive summaries. Track reasoning architectures, Group Relative Policy Optimization (GRPO), GUI grounding agents, and inference kernels.
+      </p>
+    </section>
+
+    <!-- Interactive Paper List Island -->
+    <PaperList client:load />
+  </div>
+</RootLayout>

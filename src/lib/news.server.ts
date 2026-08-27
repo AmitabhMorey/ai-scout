@@ -72,7 +72,10 @@ export async function searchNews(topic: TopicKey, range: RangeKey): Promise<News
   const fresh = getCached(key);
   if (fresh) return { items: fresh, cached: true };
 
-  const apiKey = process.env["FIRECRAWL_API_KEY"];
+  const apiKey =
+    process.env["FIRECRAWL_API_KEY"] ||
+    // @ts-ignore
+    (typeof import.meta !== "undefined" && import.meta.env?.FIRECRAWL_API_KEY);
   if (!apiKey) return { items: [], error: "FIRECRAWL_API_KEY is not configured" };
 
   return queued(async () => {

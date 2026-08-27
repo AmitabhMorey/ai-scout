@@ -1,0 +1,27 @@
+---
+import RootLayout from '@/layouts/RootLayout.astro';
+import AgentGrid from '@/components/agents/AgentGrid.vue';
+---
+
+<RootLayout
+  title="Agentic IDEs & Autonomous Coding Agents — AI Scout"
+  description="Directory, release changelogs, and architecture scorecard matrix for modern AI coding tools, IDEs, and CLI terminal agents."
+>
+  <div class="space-y-8">
+    <!-- Header -->
+    <section class="border-b border-border pb-8 pt-2 space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">Developer Ecosystem // Scorecard</span>
+      </div>
+      <h1 class="font-serif-display text-4xl sm:text-5xl font-normal text-foreground">
+        Agentic IDEs & Coding Agents
+      </h1>
+      <p class="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+        Compare multi-file diff capabilities, autonomous terminal execution, Model Context Protocol (MCP) integrations, and local model support across modern developer agents.
+      </p>
+    </section>
+
+    <!-- Interactive Agent Grid & Scorecard Island -->
+    <AgentGrid client:load />
+  </div>
+</RootLayout>

@@ -1,0 +1,27 @@
+---
+import RootLayout from '@/layouts/RootLayout.astro';
+import FundingCharts from '@/components/funding/FundingCharts.vue';
+---
+
+<RootLayout
+  title="AI Startup Funding & Venture Capital Radar — AI Scout"
+  description="Verified financing rounds, valuations, investor syndicates, and monthly market capital trends across AI sectors."
+>
+  <div class="space-y-8">
+    <!-- Header -->
+    <section class="border-b border-border pb-8 pt-2 space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-mono uppercase tracking-widest text-purple-400">Market Intelligence // Capital</span>
+      </div>
+      <h1 class="font-serif-display text-4xl sm:text-5xl font-normal text-foreground">
+        Startups & Venture Capital Radar
+      </h1>
+      <p class="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+        Track capital deployment across agentic infrastructure, foundation models, developer tooling, and robotics startups. Sourced from verified announcements and SEC filings.
+      </p>
+    </section>
+
+    <!-- Interactive Funding Analytics & Deals Island -->
+    <FundingCharts client:load />
+  </div>
+</RootLayout>

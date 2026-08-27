@@ -1,0 +1,143 @@
+export interface AgentTool {
+  id: string;
+  name: string;
+  creator: string;
+  type: 'IDE' | 'CLI Agent' | 'VS Code Extension' | 'Autonomous Platform';
+  releaseVersion: string;
+  multiFileDiff: 'Native' | 'Experimental' | 'None';
+  terminalExecution: 'Autonomous' | 'Supervised' | 'None';
+  mcpSupport: 'Native' | 'Planned' | 'None';
+  localModelSupport: 'Ollama / LM Studio' | 'BYOK API Only' | 'Cloud Only';
+  pricing: string;
+  website: string;
+  github?: string;
+  description: string;
+  featured?: boolean;
+}
+
+export const AGENTS_DATA: AgentTool[] = [
+  {
+    id: 'cursor',
+    name: 'Cursor',
+    creator: 'Anysphere',
+    type: 'IDE',
+    releaseVersion: 'v0.46',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Supervised',
+    mcpSupport: 'Native',
+    localModelSupport: 'BYOK API Only',
+    pricing: 'Free Tier / $20/mo',
+    website: 'https://cursor.com',
+    description: 'The premier AI-first code editor fork with Shadow Workspace, Agent Composer, and semantic vector codebase indexing.',
+    featured: true,
+  },
+  {
+    id: 'windsurf',
+    name: 'Windsurf (Cascade)',
+    creator: 'Codeium',
+    type: 'IDE',
+    releaseVersion: 'v1.2',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Supervised',
+    mcpSupport: 'Native',
+    localModelSupport: 'BYOK API Only',
+    pricing: 'Free Tier / $15/mo',
+    website: 'https://codeium.com/windsurf',
+    description: 'Agentic IDE powered by Cascade collaborative agent flow, continuous context awareness, and predictive navigation.',
+    featured: true,
+  },
+  {
+    id: 'claude-code',
+    name: 'Claude Code',
+    creator: 'Anthropic',
+    type: 'CLI Agent',
+    releaseVersion: 'v0.2.9 (Research Preview)',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Autonomous',
+    mcpSupport: 'Native',
+    localModelSupport: 'BYOK API Only',
+    pricing: 'Usage-based BYOK',
+    website: 'https://anthropic.com/claude-code',
+    github: 'https://github.com/anthropics',
+    description: 'Anthropic’s official agentic terminal CLI coding tool capable of reading git history, running bash tests, and executing autonomous refactors.',
+    featured: true,
+  },
+  {
+    id: 'devin',
+    name: 'Devin',
+    creator: 'Cognition AI',
+    type: 'Autonomous Platform',
+    releaseVersion: 'Devin 2.0',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Autonomous',
+    mcpSupport: 'Planned',
+    localModelSupport: 'Cloud Only',
+    pricing: 'Enterprise / Waitlist',
+    website: 'https://cognition.ai',
+    description: 'Autonomous software engineering teammate with its own sandboxed VM, browser, and terminal shell.',
+    featured: false,
+  },
+  {
+    id: 'cline',
+    name: 'Cline (ex-Claude Dev)',
+    creator: 'Open Source Community',
+    type: 'VS Code Extension',
+    releaseVersion: 'v3.5',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Supervised',
+    mcpSupport: 'Native',
+    localModelSupport: 'Ollama / LM Studio',
+    pricing: 'Open Source (Free)',
+    website: 'https://github.com/cline/cline',
+    github: 'https://github.com/cline/cline',
+    description: 'Autonomous coding agent extension for VS Code with deep MCP tool server support and custom system prompt profiles.',
+    featured: true,
+  },
+  {
+    id: 'aider',
+    name: 'Aider',
+    creator: 'Paul Gauthier',
+    type: 'CLI Agent',
+    releaseVersion: 'v0.74',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Autonomous',
+    mcpSupport: 'None',
+    localModelSupport: 'Ollama / LM Studio',
+    pricing: 'Open Source (Free)',
+    website: 'https://aider.chat',
+    github: 'https://github.com/paul-gauthier/aider',
+    description: 'Pioneering terminal pair programmer with git repo map AST parsing and automatic commit message generation.',
+    featured: false,
+  },
+  {
+    id: 'antigravity',
+    name: 'Google Antigravity',
+    creator: 'Google DeepMind',
+    type: 'IDE',
+    releaseVersion: 'v2.0 Preview',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Autonomous',
+    mcpSupport: 'Native',
+    localModelSupport: 'BYOK API Only',
+    pricing: 'Free Tier / Cloud Credits',
+    website: 'https://deepmind.google',
+    description: 'Next-generation agentic IDE ecosystem built around pair programming, multi-turn plan alignment, sidecar subagents, and automated verification.',
+    featured: true,
+  },
+  {
+    id: 'roo-code',
+    name: 'Roo Code (Roo Cline)',
+    creator: 'Roo Community',
+    type: 'VS Code Extension',
+    releaseVersion: 'v3.7',
+    multiFileDiff: 'Native',
+    terminalExecution: 'Supervised',
+    mcpSupport: 'Native',
+    localModelSupport: 'Ollama / LM Studio',
+    pricing: 'Open Source (Free)',
+    website: 'https://github.com/RooVetGit/Roo-Cline',
+    github: 'https://github.com/RooVetGit/Roo-Cline',
+    description: 'Customizable community agent fork featuring specialized multi-agent mode personas (Architect, Code, Ask, Debug).',
+    featured: false,
+  },
+];

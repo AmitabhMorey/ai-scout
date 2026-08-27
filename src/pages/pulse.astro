@@ -1,0 +1,28 @@
+---
+import RootLayout from '@/layouts/RootLayout.astro';
+import LivePulseFeed from '@/components/pulse/LivePulseFeed.vue';
+---
+
+<RootLayout
+  title="Live News & Release Briefing Stream — AI Scout"
+  description="Real-time web search and verified release intelligence across frontier AI models, agentic IDEs, autonomous agents, and venture launches."
+>
+  <div class="space-y-8">
+    <!-- Header -->
+    <section class="border-b border-border pb-8 pt-2 space-y-3">
+      <div class="flex items-center gap-2">
+        <span class="size-2 rounded-full bg-emerald-400 radar-dot"></span>
+        <span class="text-xs font-mono uppercase tracking-widest text-emerald-400">Continuous Live Stream</span>
+      </div>
+      <h1 class="font-serif-display text-4xl sm:text-5xl font-normal text-foreground">
+        Live AI Release Pulse
+      </h1>
+      <p class="text-sm text-muted-foreground max-w-2xl leading-relaxed">
+        Live web intelligence sourced via Firecrawl v2. Continuous indexing of company blog posts, changelogs, benchmark updates, and developer announcements.
+      </p>
+    </section>
+
+    <!-- Interactive Feed Island -->
+    <LivePulseFeed client:load />
+  </div>
+</RootLayout>
