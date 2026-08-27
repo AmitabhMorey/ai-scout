@@ -1,9 +1,10 @@
 # GitHub Linguist Language Configuration
-*.astro linguist-detectable=true
+*.astro linguist-detectable
 *.astro linguist-language=Astro
 
-*.vue linguist-detectable=true
+*.vue linguist-detectable
 *.vue linguist-language=Vue
 
-# Treat static data files as data so Vue and Astro are highlighted as the primary languages
-src/data/* linguist-vendored=true
+# Treat static data files as vendored to highlight Vue & Astro as the primary project languages
+src/data/** linguist-vendored
+docs/** linguist-documentation
