@@ -1,34 +1,17 @@
-import { createFileRoute } from "@tanstack/react-router";
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { ArrowUpRight, Loader2, RefreshCw } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { fetchAiNews, NEWS_TOPICS, type RangeKey, type TopicKey } from "@/lib/news.functions";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "AI Pulse — New AI Models & Agentic IDE Releases" },
-      {
-        name: "description",
-        content:
-          "A quiet, source-linked briefing on new AI model launches, agentic IDEs and coding agents, refreshed on demand.",
-      },
-      { property: "og:title", content: "AI Pulse — New AI Models & Agentic IDE Releases" },
-      {
-        property: "og:description",
-        content:
-          "Track what's shipping in AI: new models, agentic IDEs, coding agents and launches, in one briefing.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: Index,
-});
+import {
+  NEWS_TOPICS,
+  type NewsResult,
+  type RangeKey,
+  type TopicKey,
+} from "@/lib/news-types";
 
 const RANGES = [
   { key: "qdr:d", label: "24 hours" },
@@ -36,14 +19,48 @@ const RANGES = [
   { key: "qdr:m", label: "Month" },
 ] as const;
 
-function Index() {
+function formatPublishedDate(rawDate?: string): string {
+  if (!rawDate) return "Recent";
+
+  // Preserve relative time strings directly (e.g. "9 hours ago", "1 day ago", "This week", "Past 24 hours")
+  if (
+    /\bago\b/i.test(rawDate) ||
+    /\b(today|yesterday|recent|this week|this month|past \d+)\b/i.test(rawDate)
+  ) {
+    return rawDate;
+  }
+
+  const timestamp = Date.parse(rawDate);
+  if (!Number.isNaN(timestamp)) {
+    return new Date(timestamp).toLocaleDateString(undefined, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  }
+
+  return rawDate;
+}
+
+async function fetchNewsApi(topic: TopicKey, range: RangeKey): Promise<NewsResult> {
+  const res = await fetch("/api/news", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ topic, range }),
+  });
+  if (!res.ok) {
+    throw new Error(`HTTP error ${res.status}`);
+  }
+  return res.json();
+}
+
+export default function Home() {
   const [topic, setTopic] = useState<TopicKey>("models");
   const [range, setRange] = useState<RangeKey>("qdr:w");
 
-  const run = useServerFn(fetchAiNews);
   const { data, isFetching, refetch } = useQuery({
     queryKey: ["ai-news", topic, range],
-    queryFn: () => run({ data: { topic, range } }),
+    queryFn: () => fetchNewsApi(topic, range),
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
     refetchOnWindowFocus: false,
@@ -82,9 +99,9 @@ function Index() {
               <button
                 key={key}
                 onClick={() => setTopic(key as TopicKey)}
-                className={`-mb-3 border-b-2 pb-3 text-sm transition-colors ${
+                className={`-mb-3 border-b-2 pb-3 text-sm cursor-pointer transition-colors ${
                   topic === key
-                    ? "border-foreground text-foreground"
+                    ? "border-foreground text-foreground font-medium"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
@@ -99,9 +116,9 @@ function Index() {
                 <button
                   key={r.key}
                   onClick={() => setRange(r.key)}
-                  className={`transition-colors ${
+                  className={`cursor-pointer transition-colors ${
                     range === r.key
-                      ? "text-foreground underline underline-offset-4"
+                      ? "text-foreground underline underline-offset-4 font-medium"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -142,16 +159,13 @@ function Index() {
                   <Skeleton className="h-4 w-full" />
                 </div>
               ))
-            : items.map((item) => (
-                <article key={item.url} className="group grid gap-2 py-6 sm:grid-cols-[8rem_1fr]">
-                  <div className="text-xs leading-6 text-muted-foreground">
-                    {item.publishedAt
-                      ? new Date(item.publishedAt).toLocaleDateString(undefined, {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })
-                      : "Undated"}
+            : items.map((item, i) => (
+                <article
+                  key={`${item.url}-${i}`}
+                  className="group grid gap-2 py-6 sm:grid-cols-[8rem_1fr]"
+                >
+                  <div className="text-xs font-medium leading-6 text-muted-foreground">
+                    {formatPublishedDate(item.publishedAt)}
                   </div>
                   <div>
                     <a
